@@ -1,0 +1,24 @@
+USER: "admin"
+PASSWORD: "admin"
+LOG_DIR: "/var/log/{{USER}}"
+default_packages: 
+       - vim
+       - libaio1
+       - curl
+       - sudo
+       - rcconf
+       - zip
+       - unzip
+       - libcurl4-openssl-dev
+       - pkg-config
+       - ntp
+       - software-properties-common
+
+default_repos:
+       - 'deb http://ftp.debian.org/debian/ jessie-updates main contrib non-free'
+       - 'deb-src http://ftp.debian.org/debian/ jessie-updates main contrib non-free'
+       - 'deb http://security.debian.org/ jessie/updates main contrib non-free'
+       - 'deb-src http://security.debian.org/ jessie/updates main contrib non-free'
+       - 'deb http://ftp.br.debian.org/debian stable main contrib non-free'
+       - 'deb-src http://ftp.br.debian.org/debian stable main contrib non-free'
+

@@ -1,0 +1,57 @@
+{% for item in vhost_apache %}
+
+
+<VirtualHost *:{{item.port}}>
+        DocumentRoot            "{{item.documentRoot}}/mobile"
+        Servername              "{{item.servername}}"
+        alias /backend          "{{item.documentRoot}}/backend/service"
+        ErrorLog                "{{log_dir}}/{{item.servername}}-error_log"
+
+
+{% if item.modules %}
+
+        alias /est              "{{item.documentRoot}}/modules/est/mobile"
+        alias /backend_est      "{{item.documentRoot}}/modules/est/backend/service"
+        alias /df               "{{item.documentRoot}}/modules/df/mobile"
+        alias /backend_df       "{{item.documentRoot}}/modules/df/backend/service"
+        alias /ger              "{{item.documentRoot}}/modules/ger/mobile"
+        alias /backend_ger      "{{item.documentRoot}}/modules/ger/backend/service"
+        alias /fin              "{{item.documentRoot}}/modules/fin/mobile"
+        alias /backend_fin      "{{item.documentRoot}}/modules/fin/backend/service"
+        alias /fis              "{{item.documentRoot}}/modules/fis/mobile"
+        alias /backend_fis      "{{item.documentRoot}}/modules/fis/backend/service"
+        alias /ctb              "{{item.documentRoot}}/modules/ctb/mobile"
+        alias /backend_ctb      "{{item.documentRoot}}/modules/ctb/backend/service"
+        alias /cdp              "{{item.documentRoot}}/modules/cdp/mobile"
+        alias /baackend_cdp     "{{item.documentRoot}}/modules/cdp/backend/service"
+        alias /gpa              "{{item.documentRoot}}/modules/gpa/mobile"
+        alias /backend_gpa      "{{item.documentRoot}}/modules/gpa/backend/service"
+        alias /ped              "{{item.documentRoot}}/modules/ped/mobile"
+        alias /backend_ped      "{{item.documentRoot}}/modules/ped/backend/service"
+
+{% else %}
+
+{% endif %}
+
+</VirtualHost>
+
+<Directory {{item.documentRoot}}/mobile>
+        Header add Access-Control-Allow-Origin "*"
+        Header add Access-Control-Allow-Credentials true
+        Header add Access-Control-Allow-Methods "*"
+        Header add Access-Control-Allow-Headers "user-id, content-type"
+</Directory>
+
+
+<Directory {{item.documentRoot}}/mobile>
+Use SecurityFrontend
+</Directory>
+
+
+<Directory {{item.documentRoot}}/backend/service>
+Use SecurityBackend
+</Directory>
+
+
+
+{% endfor %}

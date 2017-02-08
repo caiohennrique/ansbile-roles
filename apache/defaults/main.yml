@@ -1,0 +1,14 @@
+apache_dir: /etc/apache2
+
+vhost_apache:
+ - name: project1
+   servername: "project1.example.com"
+   documentRoot: "/var/www/project1"
+   port: "80"
+ - name: project2
+   servername: "project2.example.com"
+   documentRoot: "/var/www/project2"
+   port: "80"
+
+log_dir: "/var/log/projects"
+apache_port: "80"

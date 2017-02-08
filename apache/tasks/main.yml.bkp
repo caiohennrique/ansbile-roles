@@ -1,0 +1,46 @@
+    - name: install apache2
+      apt: name=apache2  update_cache=yes state=lastest
+
+    - name: enabled mod_rewrite
+      apache2_module: name=rewrite state=present
+      notify:
+        - restart apache2
+
+    - name: enabled mod_macro
+      apache2_module: name=macro state=present
+      notify:
+        - restart apache2
+
+    - name: Copy macro.conf      
+      copy: src=files/macro.conf dest={{apache_dir}}/mods-available/macro.conf
+
+    - name: Symbol link macro.conf
+      file: src=/etc/apache2/mods-available/macro.conf dest=/etc/apache2/mods-enabled/macro.conf state=link
+      notify:
+        - restart apache2
+
+    - name: enabled mod_headers
+      apache2_module: name=headers state=present
+      notify:
+        - restart apache2
+
+    - name: Change permission default directory
+      file: path={{DEFAULT_DIR}} owner={{USER}} group={{USER}} mode=0755 state=directory
+
+    - name: Copy template Apache ports.conf      
+      template: src=templates/ports.conf.j2 dest={{apache_dir}}/ports.conf mode=0644
+
+    - name: Copy template Apache vhost Teknisa
+      template: src=templates/{{PROJECT_NAME}}-vhost.conf.j2 dest={{apache_dir}}/sites-available/{{PROJECT_NAME}}-vhost.conf mode=0644
+      when: {{PROJECT_NAME}}
+
+    - name: Symbol link portalcompras-vhost.conf
+      file: src={{apache_dir}}/sites-available/{{PROJECT_NAME}}-vhost.conf dest={{apache_dir}}/sites-enabled/{{PROJECT_NAME}}-vhost.conf state=link
+      notify:
+        - restart apache2
+      when: {{PROJECT_NAME}}
+
+
+    - name: ensure apache is running (and enable it at boot)
+      service: name=apache2 state=started enabled=yes
+

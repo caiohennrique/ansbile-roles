@@ -1,0 +1,12 @@
+- name: Install list of packages for PHP and libries
+  apt: name={{item}} update_cache=yes state=installed
+  with_items:
+      - php5={{version_php}}
+      - php5-dev={{version_php}}
+      - libapache2-mod-php5={{version_php}}
+      - php5-curl={{version_php}}
+      - php-pear={{version_php}}
+      - php5-ldap={{version_php}}
+      - php5-mcrypt={{version_php}}
+      - php5-sybase={{version_php}}
+      - unixodbc={{version_unixodbc}}

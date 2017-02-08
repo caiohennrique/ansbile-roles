@@ -1,0 +1,5 @@
+tomcat_dir: "/etc/tomcat8"
+java_home: "/usr/lib/jvm/java-8-oracle"
+birt_home: "/var/lib/tomcat8/webapps/birt-viewer"
+tomcat_port: 9191
+default_dir: "/var/www/"

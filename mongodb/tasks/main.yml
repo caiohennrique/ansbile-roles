@@ -1,0 +1,30 @@
+- name: Add repositories mongodb
+  become: yes
+  apt_repository: repo="deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.4 main" state=present
+
+- name: Apt_key add
+  apt_key: keyserver="keyserver.ubuntu.com" id=0C49F3730359A14518585931BC711F9BA15703C6
+
+- name: install mongodb
+  apt: name=mongodb-org update_cache=yes state=installed
+
+- name: ensure mongodb is running (and enable it at boot)
+  service: name=mongod state=started enabled=yes
+
+- name: Add install pear mongodb package
+  pear: name=pecl/mongodb state=present
+
+- name: Add install pear mongo package
+  pear: name=pecl/mongo state=present
+
+- name: Copy mongodb.ini
+  copy: src=files/mongodb.ini dest=/etc/php5/mods-available/mongodb.ini
+
+- name: Enable mongodb for php
+  shell: php5enmod mongodb
+
+- name: Copy mongo.ini
+  copy: src=files/mongo.ini dest=/etc/php5/mods-available/mongo.ini
+
+- name: Enable mongo for php
+  shell: php5enmod mongo

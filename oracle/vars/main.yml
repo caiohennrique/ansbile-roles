@@ -1,0 +1,2 @@
+oracle_dir: "/opt/oracle"
+oracle_home: "{{oracle_dir}}/instantclient_12_1"

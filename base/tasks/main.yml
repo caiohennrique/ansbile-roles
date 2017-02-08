@@ -1,0 +1,21 @@
+- name: Add repositories base
+  apt_repository: repo='{{item}}' state=present update_cache=yes
+  with_items: '{{default_repos}}'
+  tags: base  
+
+- name: Create User default
+  user: name={{USER}} password={{PASSWORD}}
+  tags: base
+
+- name: Install list of packages
+  apt: name={{item}} state=latest
+  with_items: '{{default_packages}}'
+  tags: base
+
+- name: Create and change permission default directory log
+  file: path={{LOG_DIR}} owner={{USER}} group={{USER}} mode=0755 state=directory
+  tags: base
+
+- name: Copy file sudoers
+  template: src=files/sudoers.j2 dest=/etc/sudoers validate="visudo -cf %s" backup=yes
+  tags: base

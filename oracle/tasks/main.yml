@@ -1,0 +1,26 @@
+- name: Create directory Oracle 12 Instant Client
+  file: path={{oracle_dir}} state=directory mode=0644 owner={{USER}} group={{USER}} state=directory
+
+- name: Copy files Oracle 12 Instant Client
+  unarchive: src={{item}} dest={{oracle_dir}}
+  with_fileglob: files/instantclient*.zip
+
+- name: Setting envairoment Oracle 12 Instant Client ( copy file oracle.sh to profile.d )
+  copy: src=files/oracle.sh dest=/etc/profile.d/oracle.sh  
+
+- name: Symbol link libclntsh.so
+  file: src={{oracle_home}}/libclntsh.so.12.1 dest={{oracle_home}}/libclntsh.so state=link
+
+
+- name: Symbol link libocci.so
+  file: src={{oracle_home}}/libocci.so.12.1 dest={{oracle_home}}/libocci.so state=link
+
+- name: Add install pear oci8-2.0.12 package
+  pear: name=pecl/oci8-2.0.12 state=present
+
+- name: Copy oci8.ini
+  copy: src=files/oci8.ini dest=/etc/php5/mods-available/oci8.ini
+
+- name: Enable oci8 for php
+  shell: php5enmod oci8
+
