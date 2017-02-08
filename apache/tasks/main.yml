@@ -45,6 +45,12 @@
     - name: Copy template Apache vhost
       template: src=templates/vhost.conf.j2 dest={{apache_dir}}/sites-available/vhost.conf mode=0644
 
+    - name: Copy template Apache vhost-default
+      template: src=templates/000-default.conf.j2 dest={{apache_dir}}/sites-available/000-default.conf.j2 mode=0644
+      notify:
+        - restart apache2
+
+
     - name: Symbol link vhost.conf
       file: src={{apache_dir}}/sites-available/vhost.conf dest={{apache_dir}}/sites-enabled/vhost.conf state=link
       notify:

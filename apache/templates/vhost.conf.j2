@@ -36,14 +36,6 @@
 </VirtualHost>
 
 <Directory {{item.documentRoot}}/mobile>
-        Header add Access-Control-Allow-Origin "*"
-        Header add Access-Control-Allow-Credentials true
-        Header add Access-Control-Allow-Methods "*"
-        Header add Access-Control-Allow-Headers "user-id, content-type"
-</Directory>
-
-
-<Directory {{item.documentRoot}}/mobile>
 Use SecurityFrontend
 </Directory>
 
