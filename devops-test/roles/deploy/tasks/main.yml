@@ -8,7 +8,7 @@
     url: http://localhost:8080/java-chef-test/chef/ping
     method: GET
     return_content: yes
-    register: result
+  register: result
   until: result.content("Hello Chef deployed war") != -1
   retries: 2
   delay: 5
