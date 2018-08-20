@@ -19,6 +19,5 @@
     - oracle-java8-installer
     - ca-certificates
     - oracle-java8-set-default   
-    - ttf-mscorefonts-installer
   tags: java
 
