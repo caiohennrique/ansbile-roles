@@ -1,5 +1,5 @@
 - name: Install Tomcat8
-  apt: name=tomcat8  update_cache=yes state=installed
+  apt: name=tomcat8  update_cache=yes state=present
 
 - name: Ensure Tomcat8 is running (and enable it at boot)
   service: name=tomcat8 state=started enabled=yes
