@@ -1,0 +1,3 @@
+vars:
+  warRemotePath: "{{ /home/avenuecode/devops-challenge-ac002/cfg-management/assets }}"
+  warName: {{ java-chef-test.war }}
