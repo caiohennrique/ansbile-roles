@@ -1,0 +1,15 @@
+- name: Install Tomcat8
+  apt: name=tomcat8  update_cache=yes state=installed
+
+- name: Ensure Tomcat8 is running (and enable it at boot)
+  service: name=tomcat8 state=started enabled=yes
+
+- name: Copy template server.xml Tomcat
+  template: src=templates/server.xml.j2 dest={{tomcat_dir}}/server.xml mode=0644
+  notify: 
+    - restart tomcat8
+
+- name: Copy template web.xml birt
+  template: src=templates/web.xml.j2 dest={{birt_home}}/WEB-INF/web.xml mode=0644
+  notify:
+    - restart tomcat8
