@@ -1,7 +1,7 @@
- - name: Deploy java-chef-test.war
-    unarchive: src={{ warRemotePath }}/{{ warName }} dest=/var/lib/tomcat8/webapps/ROOT/ copy=no mode=0755 owner=tomcat8 group=tomcat8
-    notify:
-        - restart tomcat8
+- name: Deploy java-chef-test.war
+  unarchive: src={{ warRemotePath }}/{{ warName }} dest=/var/lib/tomcat8/webapps/ROOT/ copy=no mode=0755 owner=tomcat8 group=tomcat8
+  notify:
+      - restart tomcat8
 
 - name: Validate deploy
   shell: curl --head --silent  http://localhost:8080/java-chef-test/chef/ping
