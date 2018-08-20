@@ -9,13 +9,3 @@
   until: result.stdout.find("Hello Chef deployed war") != -1
   retries: 2
   delay: 5
-
-
-handlers:
-  - name: Restart tomcat8
-    service: name=tomcat8 state=restarted
-
-
-vars:
-  warRemotePath: "{{ /home/avenuecode/devops-challenge-ac002/cfg-management/assets }}"
-  warName: {{ java-chef-test.war }}
